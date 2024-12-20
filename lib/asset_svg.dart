@@ -38,15 +38,17 @@ class AssetSvg extends ImageProvider<AssetSvg> {
     assert(key == this);
 
     var rawSvg = await rootBundle.loadString(asset);
-    final DrawableRoot svgRoot = await svg.fromSvgString(rawSvg, rawSvg);
+    // final DrawableRoot svgRoot = await Svg().fromSvgString(rawSvg, rawSvg);
     final scale = window.devicePixelRatio;
-    final ui.Picture picture = svgRoot.toPicture(
-      size: Size(
-        width.toDouble() * scale,
-        height.toDouble() * scale,
-      ),
-      clipToViewBox: false,
-    );
+    // final ui.Picture picture = svgRoot.toPicture(
+    //   size: Size(
+    //     width.toDouble() * scale,
+    //     height.toDouble() * scale,
+    //   ),
+    //   clipToViewBox: false,
+    // );
+    final pictureInfo = await vg.loadPicture(SvgStringLoader(rawSvg), null);
+    final ui.Picture picture = pictureInfo.picture;
     var imageW = (width * scale).toInt();
     var imageH = (height * scale).toInt();
     final ui.Image image = await picture.toImage(imageW, imageH);
@@ -61,7 +63,9 @@ class AssetSvg extends ImageProvider<AssetSvg> {
   bool operator ==(dynamic other) {
     if (other.runtimeType != runtimeType) return false;
     final AssetSvg typedOther = other;
-    return asset == typedOther.asset && width == typedOther.width && height == typedOther.height;
+    return asset == typedOther.asset &&
+        width == typedOther.width &&
+        height == typedOther.height;
   }
 
   @override
