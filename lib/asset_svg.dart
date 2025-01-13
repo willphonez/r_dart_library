@@ -69,7 +69,8 @@ class AssetSvg extends ImageProvider<AssetSvg> {
   }
 
   @override
-  int get hashCode => hashValues(asset.hashCode, width, height, 1.0);
+  // int get hashCode => hashValues(asset.hashCode, width, height, 1.0);
+  int get hashCode => Object.hash(asset.hashCode, width, height, 1.0);
 
   @override
   String toString() => '$runtimeType(${describeIdentity(asset)}, scale: 1.0)';
