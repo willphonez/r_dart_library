@@ -38,17 +38,17 @@ class AssetSvg extends ImageProvider<AssetSvg> {
     assert(key == this);
 
     var rawSvg = await rootBundle.loadString(asset);
-    // final DrawableRoot svgRoot = await Svg().fromSvgString(rawSvg, rawSvg);
+    final DrawableRoot svgRoot = await svg.fromSvgString(rawSvg, rawSvg);
     final scale = window.devicePixelRatio;
-    // final ui.Picture picture = svgRoot.toPicture(
-    //   size: Size(
-    //     width.toDouble() * scale,
-    //     height.toDouble() * scale,
-    //   ),
-    //   clipToViewBox: false,
-    // );
-    final pictureInfo = await vg.loadPicture(SvgStringLoader(rawSvg), null);
-    final ui.Picture picture = pictureInfo.picture;
+    final ui.Picture picture = svgRoot.toPicture(
+      size: Size(
+        width.toDouble() * scale,
+        height.toDouble() * scale,
+      ),
+      clipToViewBox: false,
+    );
+    // final pictureInfo = await vg.loadPicture(SvgStringLoader(rawSvg), null);
+    // final ui.Picture picture = pictureInfo.picture;
     var imageW = (width * scale).toInt();
     var imageH = (height * scale).toInt();
     final ui.Image image = await picture.toImage(imageW, imageH);
